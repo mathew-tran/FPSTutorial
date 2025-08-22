@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlayerController : MonoBehaviour
 {
@@ -14,10 +16,15 @@ public class PlayerController : MonoBehaviour
     private float mXRotation = 0f;
     public float mXSensitivity = 30.0f;
     public float mYSensitivity = 30.0f;
+
+    public UnityEvent<GameObject> OnObjectLookedAt;
+    private GameObject mLastObjectLookedAt = null;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         mController = GetComponent<CharacterController>();
+        //Cursor.lockState = CursorLockMode.Confined;
+        //Cursor.visible = false;
     }
 
     // Update is called once per frame
@@ -39,6 +46,22 @@ public class PlayerController : MonoBehaviour
         transform.Rotate(Vector3.up * (mouseX * Time.deltaTime) * mXSensitivity);
 
     }
+
+    public void LookCast()
+    {
+        RaycastHit hit;
+        Ray landingRay = new Ray(transform.position, transform.forward);
+        if (Physics.Raycast(landingRay, out hit, 100))
+        {
+            
+            if (hit.collider.gameObject != mLastObjectLookedAt)
+            {
+                mLastObjectLookedAt = hit.collider.gameObject;
+                OnObjectLookedAt.Invoke(mLastObjectLookedAt);
+            }
+           
+        }
+    }
     public void ProcessMove(Vector2 input)
     {
         Vector3 moveDirection = Vector3.zero;
@@ -51,7 +74,6 @@ public class PlayerController : MonoBehaviour
             mVelocity.y = -2f;
         }
         mController.Move(mVelocity * Time.deltaTime);
-        Debug.Log(mVelocity);
 
     }
 
