@@ -20,7 +20,7 @@ public class InputManager : MonoBehaviour
     {
         mPlayerController.ProcessLook(mOnFootActions.Look.ReadValue<Vector2>());
         mPlayerController.ProcessMove(mOnFootActions.Movement.ReadValue<Vector2>());
-        //mPlayerController.LookCast();
+        mPlayerController.LookCast();
     }
 
     private void LateUpdate()

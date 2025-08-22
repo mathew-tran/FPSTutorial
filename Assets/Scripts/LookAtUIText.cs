@@ -14,6 +14,14 @@ public class LookAtUIText : MonoBehaviour
 
     public void OnPlayerLookedAtObject(GameObject go)
     {
-        mText.text = go.name;
+        if (go == null)
+        {
+            mText.text = "";
+        }
+        else
+        {
+            mText.text = go.name;
+        }
+           
     }
 }

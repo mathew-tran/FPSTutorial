@@ -23,8 +23,8 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         mController = GetComponent<CharacterController>();
-        //Cursor.lockState = CursorLockMode.Confined;
-        //Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = false;
     }
 
     // Update is called once per frame
@@ -40,11 +40,14 @@ public class PlayerController : MonoBehaviour
 
         mXRotation -= (mouseY * Time.deltaTime) * mYSensitivity;
         mXRotation = Mathf.Clamp(mXRotation, -60.0f, 60.0f);
+        Debug.Log(mXRotation);
 
         mCamera.transform.localRotation = Quaternion.Euler(mXRotation, 0, 0);
 
-        transform.Rotate(Vector3.up * (mouseX * Time.deltaTime) * mXSensitivity);
+        Vector3 newLookRotation = Vector3.up * (mouseX * Time.deltaTime) * mXSensitivity;
 
+        transform.Rotate(newLookRotation);
+        Debug.Log(Camera.main.gameObject.name);
     }
 
     public void LookCast()
@@ -60,6 +63,14 @@ public class PlayerController : MonoBehaviour
                 OnObjectLookedAt.Invoke(mLastObjectLookedAt);
             }
            
+        }
+        else
+        {
+            if (mLastObjectLookedAt != null)
+            {
+                mLastObjectLookedAt = null;
+                OnObjectLookedAt.Invoke(mLastObjectLookedAt);
+            }
         }
     }
     public void ProcessMove(Vector2 input)
