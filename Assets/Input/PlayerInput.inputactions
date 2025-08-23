@@ -716,8 +716,8 @@
                 },
                 {
                     "name": "",
-                    "id": "17b4def1-72ef-4186-bbef-69d5264df209",
-                    "path": "<Gamepad>/buttonWest",
+                    "id": "25b8ca7c-62b3-4e78-8ed8-20b791054636",
+                    "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -727,8 +727,8 @@
                 },
                 {
                     "name": "",
-                    "id": "25b8ca7c-62b3-4e78-8ed8-20b791054636",
-                    "path": "<Keyboard>/e",
+                    "id": "17b4def1-72ef-4186-bbef-69d5264df209",
+                    "path": "<Gamepad>/buttonWest",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

@@ -55,23 +55,37 @@ public class PlayerController : MonoBehaviour
         Ray landingRay = new Ray(mCamera.transform.position, mCamera.transform.forward);
         if (Physics.Raycast(landingRay, out hit, 3))
         {
-            
-            if (hit.collider.gameObject != mLastObjectLookedAt)
+            if (hit.collider.GetComponent<Interactable>())
             {
-                mLastObjectLookedAt = hit.collider.gameObject;
-                OnObjectLookedAt.Invoke(mLastObjectLookedAt);
+                if (hit.collider.gameObject != mLastObjectLookedAt)
+                {
+                    mLastObjectLookedAt = hit.collider.gameObject;
+                    OnObjectLookedAt.Invoke(mLastObjectLookedAt);
 
-            }           
+                }
+              
+            }
+            else
+            {
+              
+                ClearLookTarget();
+            }
+
         }
         else
         {
-            if (mLastObjectLookedAt != null)
-            {
-                mLastObjectLookedAt = null;
-                OnObjectLookedAt.Invoke(mLastObjectLookedAt);
-            }
+            ClearLookTarget();
         }
 
+    }
+
+    private void ClearLookTarget()
+    {
+        if (mLastObjectLookedAt != null)
+        {
+            mLastObjectLookedAt = null;
+            OnObjectLookedAt.Invoke(mLastObjectLookedAt);
+        }
     }
     public void ProcessMove(Vector2 input)
     {
