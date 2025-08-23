@@ -1,4 +1,5 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -18,7 +19,7 @@ public class PlayerController : MonoBehaviour
     public float mYSensitivity = 30.0f;
 
     public UnityEvent<GameObject> OnObjectLookedAt;
-    private GameObject mLastObjectLookedAt = null;
+    public GameObject mLastObjectLookedAt = null;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -52,15 +53,15 @@ public class PlayerController : MonoBehaviour
     {
         RaycastHit hit;
         Ray landingRay = new Ray(mCamera.transform.position, mCamera.transform.forward);
-        if (Physics.Raycast(landingRay, out hit, 100))
+        if (Physics.Raycast(landingRay, out hit, 3))
         {
             
             if (hit.collider.gameObject != mLastObjectLookedAt)
             {
                 mLastObjectLookedAt = hit.collider.gameObject;
                 OnObjectLookedAt.Invoke(mLastObjectLookedAt);
-            }
-           
+
+            }           
         }
         else
         {
@@ -70,6 +71,7 @@ public class PlayerController : MonoBehaviour
                 OnObjectLookedAt.Invoke(mLastObjectLookedAt);
             }
         }
+
     }
     public void ProcessMove(Vector2 input)
     {

@@ -23,6 +23,22 @@ public class InputManager : MonoBehaviour
         mPlayerController.LookCast();
     }
 
+    private void Update()
+    {
+        if (mOnFootActions.Interact.triggered)
+        {
+            Debug.Log("Attempt to trigger");
+            if (mPlayerController.mLastObjectLookedAt)
+            {
+                Interactable interactable = mPlayerController.mLastObjectLookedAt.GetComponent<Interactable>();
+                if (interactable != null)
+                {
+                    interactable.BaseInteract();
+                }
+            }
+        }
+    }
+
     private void LateUpdate()
     {
 
