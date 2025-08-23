@@ -1,13 +1,12 @@
 using UnityEngine;
-using UnityEngine.UI;
+using TMPro;
 
 public class LookAtUIText : MonoBehaviour
 {
-    public Text mText;
+    public TextMeshProUGUI mText;
 
     private void Awake()
     {
-        mText = GetComponent<Text>();
         GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().OnObjectLookedAt.AddListener(OnPlayerLookedAtObject);
         mText.text = "";
     }

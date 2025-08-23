@@ -40,20 +40,18 @@ public class PlayerController : MonoBehaviour
 
         mXRotation -= (mouseY * Time.deltaTime) * mYSensitivity;
         mXRotation = Mathf.Clamp(mXRotation, -60.0f, 60.0f);
-        Debug.Log(mXRotation);
 
         mCamera.transform.localRotation = Quaternion.Euler(mXRotation, 0, 0);
 
         Vector3 newLookRotation = Vector3.up * (mouseX * Time.deltaTime) * mXSensitivity;
 
         transform.Rotate(newLookRotation);
-        Debug.Log(Camera.main.gameObject.name);
     }
 
     public void LookCast()
     {
         RaycastHit hit;
-        Ray landingRay = new Ray(transform.position, transform.forward);
+        Ray landingRay = new Ray(mCamera.transform.position, mCamera.transform.forward);
         if (Physics.Raycast(landingRay, out hit, 100))
         {
             
